@@ -1,0 +1,10 @@
+/* TEAM */
+
+	This website template was lovingly handcrafted by Travis Spomer.
+	I'm @TravisSpomer everywhere.
+
+
+/* SITE */
+
+	https://github.com/TravisSpomer/StaticSiteTemplate
+	Built with: Visual Studio Code, TypeScript, SvelteKit, and more

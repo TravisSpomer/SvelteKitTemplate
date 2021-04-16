@@ -1,0 +1,41 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"allowJs": true,
+		"alwaysStrict": true,
+		"baseUrl": ".",
+		"checkJs": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"importsNotUsedAsValues": "error",
+		"isolatedModules": true,
+		"lib": [ "ES2017", "dom" ],
+		"module": "ES6",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"paths": {
+			"$app/*": [".svelte/dev/runtime/app/*", ".svelte/build/runtime/app/*"],
+			"$lib/*": ["src/lib/*"]
+		},
+		"removeComments": true,
+		"rootDir": "src",
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"target": "es2018"
+	},
+	"include": [
+		"src/**/*.js",
+		"src/**/*.ts",
+		"src/**/*.svelte"
+	],
+	"exclude": [
+		"node_modules/**"
+	]
+}

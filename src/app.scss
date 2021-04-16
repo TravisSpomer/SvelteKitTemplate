@@ -1,0 +1,1426 @@
+/* ============================================================
+	Design system
+============================================================ */
+
+/* Colors */
+
+:root
+{
+	/* TODO: Add enough semantic colors that .theme-dark is only referenced at the root */
+	--foreground: black;
+	--background: white;
+	--background-alt: var(--grey-light4);
+	--highlight1: rgba(255, 255, 255, 0.8);
+	--shade1: rgba(0, 0, 0, 0.05);
+	--shade2: rgba(0, 0, 0, 0.1);
+	--shade3: rgba(0, 0, 0, 0.2);
+
+	--grey-light4: #f6f6f6;
+	--grey-light3: #eeeeee;
+	--grey-light2: #e5e5e5;
+	--grey-light1: #c3c3c3;
+	--grey-light-trans: rgba(255, 255, 255, 0.7);
+	--grey: #a3a3a3;
+	--grey-dark1: #767676;
+	--grey-dark2: #595858;
+	--grey-dark3: #494948;
+	--grey-dark4: #2c2b2b;
+	
+	--primary-light4: #f3f7fa;
+	--primary-light3: #e7eff6;
+	--primary-light2: #d8e7f2;
+	--primary-light1: #81bdeb;
+	--primary: #4f9adc;
+	--primary-glow: rgba(75, 154, 220, 0.2);
+	--primary-dark1: #3378c8;
+	--primary-dark2: #1753b9;
+	--primary-dark3: #223fa4;
+	--primary-dark4: #2d297f;
+	
+	--red-light4: #fbf5f4;
+	--red-light3: #fbebe8;
+	--red-light2: #fbdfd9;
+	--red-light1: #ff9d89;
+	--red: #ff3d26;
+	--red-glow: rgba(255, 61, 38, 0.2);
+	--red-dark1: #dd0737;
+	--red-dark2: #ac1c40;
+	--red-dark3: #862337;
+	--red-dark4: #5f212b;
+	
+	--yellow-light4: #fffde8;
+	--yellow-light3: #fffbd1;
+	--yellow-light2: #fff695;
+	--yellow-light1: #ffe702;
+	--yellow-highlighter: rgba(255, 231, 2, 0.8);
+	--yellow: #ffa120;
+	--yellow-glow: rgba(255, 161, 32, 0.2);
+	--yellow-dark1: #ef5f00;
+	--yellow-dark2: #bd4b00;
+	--yellow-dark3: #893700;
+	--yellow-dark4: #5e2500;
+
+	--ui-ref: #1b837f;
+
+	&.theme-dark
+	{
+		--foreground: white;
+		--background: var(--grey-dark4);
+		--background-alt: black;
+
+		--primary-glow: transparent;
+		--red-glow: transparent;
+		--yellow-glow: transparent;
+		--yellow-highlighter: rgba(239, 95, 0, 0.8);
+	}
+}
+
+/* Fonts */
+
+/*
+	Default units
+
+	Grid size: 4px
+
+	Body text: 4-5 units
+	Body text line height: 7 units
+	Paragraph spacing: 4 units
+	Buttons: 9 units
+	Indent level: 10 units
+*/
+
+@function line-height-as-multiple($line-height, $font-size)
+{
+	@return ceil(100000 * $line-height / $font-size) / 100000;
+}
+
+$font-size: 17px;
+$line-height: 28px;
+$paragraph-spacing: 16px;
+$indent: 40px;
+$line-height-multiple: line-height-as-multiple($line-height, $font-size);
+$font-weight: 400;
+$font-weight-bold: 600;
+
+$font-size-compact: 17px;
+$line-height-compact: 24px;
+$line-height-multiple-compact: line-height-as-multiple($line-height-compact, $font-size-compact);
+$font-weight-compact: 400;
+
+$font-size-tiny: 15px;
+$line-height-tiny: 24px;
+$line-height-multiple-tiny: line-height-as-multiple($line-height-tiny, $font-size-tiny);
+$font-weight-tiny: 400;
+
+$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+$font-accent: $font-body;
+$font-caps: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+$font-mono: Inconsolata, Consolas, SFMono-Regular, "Roboto Mono", monospace;
+$font-ui: $font-body;
+$font-weight-ui: 600;
+$font-size-ui: $font-size;
+
+@mixin caps
+{
+	font-family: $font-caps;
+	font-feature-settings: "c2sc" 1;
+	text-transform: uppercase;
+}
+
+$full-width: 900px; /* approximately 90 characters */
+$column-margin: $line-height;
+
+@mixin float-left($width)
+{
+	@media (min-width: #{$full-width + ($width + $column-margin) * 2 + $indent})
+	{
+		display: block;
+		position: absolute;
+		width: $width;
+		margin-left: #{-$width - $column-margin};
+	}
+}
+
+@mixin float-right($width)
+{
+	@media (min-width: #{$full-width + ($width + $column-margin) * 2 + $indent})
+	{
+		display: block;
+		position: absolute;
+		width: $width;
+		margin-left: #{$full-width + $column-margin};
+		margin-right: #{-$width - $column-margin};
+	}
+}
+
+/* ============================================================
+	Core stuff
+============================================================ */
+
+*, *::before, *::after
+{
+	box-sizing: inherit;
+}
+
+html
+{
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	min-height: 100%;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+
+	font-family: $font-body;
+	font-size: $font-size;
+	font-variant-numeric: lining-nums;
+	font-feature-settings: "lnum" 1; /* Otherwise it doesn't work on ::marker in Chromium */
+	font-weight: $font-weight;
+	line-height: $line-height-multiple;
+	color: var(--foreground);
+	background-color: var(--background);
+
+	cursor: default;
+	-webkit-tap-highlight-color: transparent;
+
+	scroll-behavior: smooth;
+}
+
+[id]
+{
+	/* Ensures that when scrolling to an #anchor, the element being scrolled to doesn't appear under the floating header */
+	scroll-margin-top: 100px;
+}
+
+body
+{
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+
+	color: var(--foreground);
+}
+
+::selection
+{
+	color: white;
+	background-color: var(--primary-dark1);
+
+	.theme-dark &
+	{
+		background-color: var(--primary-dark2);
+	}
+}
+
+@media print
+{
+	nav, header
+	{
+		display: none;
+	}
+}
+
+/* ============================================================
+	Text styles
+============================================================ */
+
+p, ul, ol, table, hr
+{
+	margin: $paragraph-spacing 0;
+}
+
+a, a:visited, summary
+{
+	color: var(--primary-dark2);
+	text-decoration-color: var(--primary-light2);
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+		text-decoration-color: var(--primary-dark1);
+	}
+}
+
+a:hover, a:focus, summary:hover, summary:focus
+{
+	color: var(--primary);
+	text-decoration-color: var(--primary);
+
+	.theme-dark &
+	{
+		color: var(--primary-light2);
+		text-decoration-color: var(--primary-light2);
+	}
+}
+
+b, strong
+{
+	font-weight: $font-weight-bold;
+}
+
+strong
+{
+	font-family: $font-accent;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	margin-top: $paragraph-spacing;
+	margin-bottom: $paragraph-spacing;
+
+	font-family: $font-accent;
+	font-weight: $font-weight-bold;
+	letter-spacing: -0.03em;
+}
+
+h1, h2, h3
+{
+    widows: 3;
+	orphans: 3;
+	page-break-after: avoid;
+}
+
+h1 + h2
+{
+	margin-top: (-$paragraph-spacing);
+}
+
+h1
+{
+	color: var(--primary-dark4);
+
+	font-size: 36px;
+	line-height: 48px;
+
+	&:first-of-type
+	{
+		margin-top: 0;
+	}
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+h2
+{
+	margin-top: $indent;
+
+	color: var(--primary-dark3);
+
+	font-size: 28px;
+	line-height: 40px;
+
+	.theme-dark &
+	{
+		color: var(--primary-light2);
+	}
+}
+
+h3
+{
+	color: var(--primary-dark2);
+
+	font-size: 24px;
+	line-height: 32px;
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+h4
+{
+	color: var(--primary-dark1);
+
+	@include caps;
+	font-size: 19px;
+	font-weight: $font-weight-bold;
+
+	letter-spacing: -0.05em;
+	line-height: $line-height;
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+h5
+{
+	color: var(--primary-dark1);
+
+	@include caps;
+	font-size: $font-size;
+	font-weight: $font-weight-bold;
+
+	line-height: $line-height;
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+h6
+{
+	color: var(--primary);
+
+	@include caps;
+	font-size: $font-size;
+	font-weight: $font-weight;
+
+	line-height: $line-height;
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+ul, ol
+{
+	padding-left: $indent;
+
+	li
+	{
+		margin: 8px 0 8px 0;
+
+		/* ::marker is not widely-supported right now so don't depend on it. */
+		&::marker
+		{
+			color: var(--primary-dark1);
+			font-weight: $font-weight;
+
+			.theme-dark &
+			{
+				color: var(--primary-light1);
+			}
+		}
+	}
+
+	ul, ol
+	{
+		margin: 8px 0 8px 0;
+	}
+}
+
+dt
+{
+	margin-top: $paragraph-spacing;
+
+	@include caps;
+	color: var(--primary-dark3);
+	font-weight: $font-weight-bold;
+
+	.theme-dark &
+	{
+		color: var(--primary-light1);
+	}
+}
+
+dd
+{
+	margin-left: $indent;
+	margin-bottom: $paragraph-spacing;
+}
+
+dfn
+{
+	font-style: normal;
+	font-weight: $font-weight-bold;
+}
+
+table
+{
+	/* Consider moving this into a specific CSS class so you don't pollute the default table with so many opinionated styles */
+
+	margin: $paragraph-spacing 0 $line-height 0;
+
+	p + &
+	{
+		/* When next to a paragraph, indent to align with UL/OL */
+		margin-left: ($indent - 12px);
+	}
+
+	border-spacing: 0;
+
+	td, th
+	{
+		padding: 5px 11px 5px 11px;
+
+		border-style: solid;
+		border-width: 1px;
+		border-color: transparent transparent var(--grey) transparent;
+
+		vertical-align: top;
+	}
+
+	&.compact
+	{
+		td, th
+		{
+			font-size: $font-size-compact;
+			font-weight: $font-weight-compact;
+			line-height: $line-height-multiple-compact;
+		}
+	}
+
+	th, thead td, tfoot td
+	{
+		text-align: left;
+		color: var(--primary-dark3);
+		font-family: $font-accent;
+		font-weight: $font-weight-bold;
+
+		.theme-dark &
+		{
+			color: var(--primary-light1);
+		}
+	}
+
+	tfoot td, tfoot th
+	{
+		border-style: solid none;
+		border-width: 1px 0;
+		border-color: var(--grey) transparent;
+	}
+
+	tr
+	{
+		page-break-inside: avoid;
+	}
+
+	&.with-headers
+	{
+		h1, h2, h3
+		{
+			margin-top: 1em;
+		}
+	}
+
+	&.no-lines
+	{
+		td, th
+		{
+			border-width: 0;
+		}
+	}
+}
+
+caption, figcaption
+{
+	caption-side: bottom;
+	margin-top: $paragraph-spacing;
+
+	font-size: $font-size-tiny;
+	font-style: italic;
+	color: var(--grey);
+}
+
+caption
+{
+	text-align: center;
+}
+
+figure
+{
+	margin-left: $indent;
+}
+
+figcaption
+{
+	text-align: left;
+}
+
+figure-list
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: $indent;
+
+	figure
+	{
+		margin-left: 0;
+
+		figcaption
+		{
+			text-align: center;
+		}
+	}
+}
+
+blockquote, aside
+{
+	position: relative;
+	margin: $line-height 0 $line-height 0;
+	padding: 11px $indent 11px $indent;
+
+	border-style: solid;
+	border-width: 1px 0 1px 0;
+	border-color: var(--grey-light2);
+
+	color: var(--grey-dark4);
+
+	.theme-dark &
+	{
+		color: var(--grey-light2);
+		border-color: var(--grey-dark1);
+	}
+
+	&.left, &.right
+	{
+		margin-top: 0;
+		padding: 0;
+
+		border: none;
+
+		color: var(--grey-dark1);
+		font-size: $font-size-compact;
+
+		.theme-dark &
+		{
+			color: var(--grey-light1);
+		}
+	}
+
+	&.left
+	{
+		@include float-left(200px);
+	}
+
+	&.right
+	{
+		@include float-right(200px);
+	}
+}
+
+blockquote::before
+{
+	position: absolute;
+	left: -9px;
+	top: -42px;
+	
+	content: "“";
+	color: var(--grey-light2);
+	font-family: $font-accent;
+	font-size: 80px;
+
+	.theme-dark &
+	{
+		color: var(--grey-dark2);
+	}
+}
+
+aside.info, aside.warning, aside.danger
+{
+	margin: $paragraph-spacing 24px $paragraph-spacing 24px;
+	padding: 11px 11px 11px 12px;
+
+	border-style: solid;
+	border-width: 1px 1px 1px 4px;
+	border-color: var(--grey-light2);
+	border-radius: .25em;
+
+	&::before
+	{
+		position: absolute;
+		width: 48px;
+		left: -52px;
+		top: 3px;
+
+		text-align: center;
+		font-size: 28px;
+	}
+
+	&.info
+	{
+		color: var(--foreground);
+		background-color: var(--primary-light4);
+		border-color: var(--primary-dark1);
+		box-shadow: 1px 2px 2px 0 var(--primary-glow);
+
+		.theme-dark &
+		{
+			background-color: var(--primary-dark4);
+		}
+
+		&::before
+		{
+			content: "ℹ️";
+			color: var(--primary-dark1);
+		}
+
+		&::selection
+		{
+			background-color: var(--primary-dark1);
+		}
+
+		strong
+		{
+			color: var(--primary-dark2);
+
+			.theme-dark &
+			{
+				color: var(--primary-light1);
+			}
+
+			&::selection
+			{
+				background-color: var(--primary-dark1);
+			}
+		}
+	}
+
+	&.warning
+	{
+		color: var(--foreground);
+		background-color: var(--yellow-light4);
+		border-color: var(--yellow-dark1);
+		box-shadow: 1px 2px 2px 0 var(--yellow-glow);
+
+		.theme-dark &
+		{
+			background-color: var(--yellow-dark4);
+		}
+
+		&::before
+		{
+			content: "⚠️";
+			color: var(--yellow-dark1);
+		}
+
+		&::selection
+		{
+			background-color: var(--yellow-dark1);
+		}
+
+		strong
+		{
+			color: var(--yellow-dark2);
+
+			.theme-dark &
+			{
+				color: var(--yellow-light1);
+			}
+
+			&::selection
+			{
+				background-color: var(--yellow-dark1);
+			}
+		}
+	}
+
+	&.danger
+	{
+		color: var(--foreground);
+		background-color: var(--red-light4);
+		border-color: var(--red-dark1);
+		box-shadow: 1px 2px 2px 0 var(--red-glow);
+
+		.theme-dark &
+		{
+			background-color: var(--red-dark4);
+		}
+
+		&::before
+		{
+			content: "⚠️";
+			color: var(--red-dark1);
+		}
+
+		&::selection
+		{
+			background-color: var(--red-dark1);
+		}
+
+		strong
+		{
+			color: var(--red-dark2);
+
+			.theme-dark &
+			{
+				color: var(--red-light1);
+			}
+
+			&::selection
+			{
+				background-color: var(--red-dark1);
+			}
+		}
+	}
+}
+
+:not(pre) > code, pre, samp
+{
+	padding: .2em .4em .2em .4em;
+
+	background-color: var(--shade1);
+	font-family: $font-mono;
+	font-weight: $font-weight;
+	font-size: $font-size-compact;
+	line-height: $line-height-compact;
+	line-height: 1;
+	tab-size: 4;
+
+	.theme-dark &
+	{
+		background-color: black;
+	}
+}
+
+pre
+{
+	padding: 15px;
+	overflow-y: auto;
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: var(--grey-light1);
+
+	.theme-dark &
+	{
+		border-color: var(--grey-dark1);
+	}
+
+	&::selection
+	{
+		color: black;
+		background-color: var(--shade2);
+
+		.theme-dark &
+		{
+			color: var(--foreground);
+			background-color: var(--grey-dark3);
+		}
+	}
+}
+
+kbd
+{
+	padding: .125em .4em .125em .4em;
+
+	color: var(--foreground);
+	border-style: solid;
+	border-width: 1px;
+	border-color: var(--grey-light1);
+	background-image: linear-gradient(to bottom, transparent, var(--grey-light2));
+	border-radius: .2em;
+	background-color: transparent;
+	font-family: $font-body;
+	font-weight: $font-weight-bold;
+	font-size: 15px;
+	font-style: normal;
+
+	white-space: nowrap;
+
+	.theme-dark &
+	{
+		border-color: var(--grey);
+		background-image: linear-gradient(to bottom, var(--grey-dark3), black);
+	}
+
+	img, svg
+	{
+		vertical-align: middle;
+		margin-bottom: 3px;
+	}
+
+	&::selection
+	{
+		color: white;
+		background-color: var(--grey-dark1);
+	}
+}
+
+.nobr
+{
+	white-space: nowrap;
+}
+
+.flexspacer
+{
+	flex: 1;
+
+	pointer-events: none;
+}
+
+mark
+{
+	padding: 2px 0 2px 0;
+
+	color: var(--foreground);
+	background-color: var(--yellow-highlighter);
+	border-radius: .2em;
+
+	&::selection
+	{
+		color: var(--foreground);
+		background-color: var(--yellow);
+	}
+}
+
+summary:hover, summary:focus
+{
+	background-color: var(--primary-light4);
+	outline: none;
+
+	text-decoration: underline;
+
+	.theme-dark &
+	{
+		background-color: black;
+	}
+}
+
+summary
+{
+	margin: -4px -8px -4px -8px;
+	padding: 4px 8px 4px 8px;
+
+	user-select: none;
+
+	& + *
+	{
+		margin-top: 4px;
+	}
+}
+
+spoiler-text
+{
+	position: relative;
+	color: transparent;
+	background-image: repeating-linear-gradient(-45deg, var(--grey-light4), var(--grey-light4) 8px, var(--grey-light2) 8px, var(--grey-light2) 16px);
+	transition: color .128s cubic-bezier(.67, 0, .33, 1);
+
+	.theme-dark &
+	{
+		background-image: repeating-linear-gradient(-45deg, black, black 8px, var(--grey-dark3) 8px, var(--grey-dark3) 16px);
+	}
+
+	&:hover
+	{
+		color: var(--foreground);
+		background-image: none;
+		background-color: var(--grey-light3);
+
+		.theme-dark &
+		{
+			background-color: var(--grey-dark3);
+		}		
+
+		&::selection
+		{
+			color: white;
+			background-color: var(--grey);
+		}
+	}
+
+	&::selection
+	{
+		color: var(--grey-light1);
+		background-color: var(--grey);
+	}
+}
+
+del
+{
+	opacity: 0.3;
+
+	user-select: none;
+}
+
+ins
+{
+	text-decoration: underline solid var(--shade3);
+	text-decoration-color: var(--shade3);
+}
+
+abbr
+{
+	text-decoration: underline solid var(--shade3);
+}
+
+var
+{
+	font-style: normal;
+	font-weight: $font-weight-bold;
+}
+
+b.ui
+{
+	color: var(--ui-ref);
+	font-family: $font-ui;
+	font-weight: $font-weight-ui;
+	font-size: $font-size-ui;
+
+	img, svg
+	{
+		vertical-align: baseline;
+	}
+}
+
+/* ============================================================
+	Page layout
+============================================================ */
+
+header
+{
+	$outset: 16px; // How much the content can spill out of the column, to line up header text with body text
+
+	display: flex;
+	flex-direction: column;
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	white-space: nowrap;
+	z-index: 99999;
+
+	color: var(--foreground);
+	background-color:  white;
+
+	font-family: $font-accent;
+	font-weight: $font-weight-bold;
+	font-size: $font-size;
+	letter-spacing: .02em;
+	line-height: $line-height-multiple;
+
+	user-select: none;
+
+	.theme-dark &
+	{
+		background-color: black;
+	}
+
+	@media (max-width: $full-width)
+	{
+		position: relative;
+	}
+
+	@supports (backdrop-filter: blur(16px))
+	{
+		background-color: var(--grey-light-trans);
+		backdrop-filter: blur(16px);
+	}
+
+	& > *
+	{
+		display: flex;
+
+		overflow-x: auto;
+
+		& > *
+		{
+			flex: 1 1 #{$full-width + $outset * 2};
+			max-width: #{$full-width + $outset * 2};
+			margin: 0 auto;
+		}
+	}
+
+	ul
+	{
+		margin: 0;
+		padding: 0;
+		height: 80px;
+
+		display: flex;
+		align-items: center;
+
+		list-style-type: none;
+	}
+	
+	li
+	{
+		display: inline-block;
+		margin: 0;
+	}
+	
+	li > *:first-child
+	{
+		display: inline-block;
+		margin: 0 8px;
+		padding: 0 8px;
+	}
+	
+	a, a:visited
+	{
+		color: var(--primary-dark2);
+		font-size: 20px;
+		line-height: 32px;
+		text-decoration: none;
+		@include caps;
+
+		.theme-dark &
+		{
+			color: var(--foreground);
+		}
+
+		img
+		{
+			transition: opacity 0.1s;
+		}
+	}
+	
+	a:hover, a:focus
+	{
+		color: var(--primary-dark2);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+
+		.theme-dark &
+		{
+			color: var(--primary-light2);
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+
+		img, svg
+		{
+			opacity: 0.6;
+		}
+	}
+}
+
+main
+{
+	flex: 1 1 auto; /* required for IE11 instead of flex: 1; */
+	display: block;
+	margin: ($indent / 2);
+
+	overflow-wrap: anywhere;
+}
+
+main > .content
+{
+	margin: 0 auto;
+	max-width: $full-width;
+}
+
+footer
+{
+	padding: 120px 24px 16px 24px;
+
+	color: var(--grey-dark3);
+	font-size: $font-size-tiny;
+	line-height: $line-height-tiny;
+
+	.theme-dark &
+	{
+		color: var(--grey);
+	}
+
+	& > *
+	{
+		margin: 0 auto;
+		max-width: $full-width;
+	}
+}
+
+/* ============================================================
+	Components and UI
+============================================================ */
+
+template
+{
+	/* Better compatibility with ancient browsers */
+	display: none;
+}
+
+main, article, aside, footer, header, nav, section, details
+{
+	/* Better compatibility with ancient browsers */
+	display: block;
+}
+
+hr
+{
+	display: block;
+	max-width: 30%;
+	height: 0;
+
+	border: 0;
+	border-top: .5em solid var(--grey-light3);
+}
+
+img, svg
+{
+	border: none;
+	page-break-inside: avoid;
+	vertical-align: top;
+}
+
+input, button, textarea, select, option, optgroup, a.button
+{
+	font-family: $font-body;
+	font-size: $font-size;
+	font-variant-numeric: lining-nums;
+	line-height: $line-height-multiple;
+}
+
+@mixin textbox
+{
+	padding: .125em .25em;
+
+	color: var(--foreground);
+	background-color: var(--background);
+	border-color: var(--grey-dark1);
+	border-style: solid;
+	border-width: 1px;
+	border-radius: .25em;
+	transition: box-shadow .2s cubic-bezier(.1, .7, .3, 1);
+
+	.theme-dark &
+	{
+		border-color: var(--grey-light1);
+	}
+
+	&:hover
+	{
+		border-color: var(--primary-dark1);
+
+		.theme-dark &
+		{
+			border-color: var(--primary-light1);
+		}
+	}
+
+	&:focus
+	{
+		outline: none;
+		border-color: var(--primary);
+		box-shadow: 0 0 5px var(--primary-glow);
+	}
+
+	&::placeholder
+	{
+		opacity: 0.25;
+	}
+}
+
+input[type=text], input[type=email], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=url]
+{
+	@include textbox;
+
+	height: 36px;
+}
+
+textarea, select
+{
+	@include textbox;
+}
+
+textarea
+{
+	resize: vertical;
+}
+
+select
+{
+	margin: 2px;
+	height: 36px;
+	padding: .125em 0;
+}
+
+button, input[type=button], input[type=submit], input[type=reset], a.button
+{
+	display: inline-block;
+	padding: 5px 19px 5px 19px;
+	min-width: 6em;
+
+	color: black;
+	border-color: var(--grey-dark3);
+	border-style: solid;
+	border-width: 1px;
+	border-radius: .25em;
+	background-color: var(--grey-light2);
+	background-image: linear-gradient(to bottom, white, var(--grey-light3) 20%, var(--grey-light2) 90%, var(--grey-light1));
+	box-shadow: 0 2px 3px rgba(black, 0.1);
+	transition: box-shadow .2s cubic-bezier(.1, .7, .3, 1);
+
+	font-family: $font-accent;
+	font-weight: $font-weight-bold;
+	text-decoration: none;
+
+	user-select: none;
+
+	&:hover, &:focus
+	{
+		/* We actually want :focus-visible here, but that's not widely supported, and will cause both hover and focus visuals to fail. */
+		border-color: var(--grey-dark2);
+		background-color: var(--grey-light4);
+		background-image: linear-gradient(to bottom, white, white 20%, var(--grey-light4) 90%, var(--grey-light1));
+		box-shadow: 1px 4px 5px rgba(black, 0.1);
+		outline: none;
+	}
+	
+	&:active
+	{
+		border-color: var(--grey-dark4);
+		background-color: var(--grey-light2);
+		background-image: linear-gradient(to bottom, var(--grey-light1), var(--grey-light2) 20%, var(--grey-light2) 90%, white);
+		box-shadow: 0 0 0 transparent;
+	}
+	
+	&:disabled, &:disabled:hover
+	{
+		color: var(--grey);;
+		border-color: var(--grey-light1);
+		background-color: var(--grey-light4);
+		background-image: none;
+		box-shadow: none;
+
+		font-weight: $font-weight;
+	
+		cursor: not-allowed;
+	}
+}
+
+button, a.button
+{
+	&.accent
+	{
+		color: white;
+		border-color: var(--primary-dark4);
+		background-color: var(--primary-dark1);
+		background-image: linear-gradient(to bottom, var(--primary-light1), var(--primary-dark1) 20%, var(--primary-dark3) 90%, var(--primary-dark4));
+		box-shadow: 0 2px 3px var(--primary-glow);
+	
+		&:hover, &:focus
+		{
+			border-color: var(--primary-dark3);
+			background-color: var(--primary-dark1);
+			background-image: linear-gradient(to bottom, var(--primary-light2), var(--primary) 20%, var(--primary-dark2) 90%, var(--primary-dark4));
+			box-shadow: 1px 4px 5px var(--primary-glow);
+		}
+		
+		&:active
+		{
+			border-color: var(--primary-dark4);
+			background-color: var(--primary-dark2);
+			background-image: linear-gradient(to bottom, var(--primary-dark4), var(--primary-dark4) 20%, var(--primary-dark2) 90%, var(--primary-light1));
+			box-shadow: 0 0 0 transparent;
+		}
+	}
+
+	&.danger
+	{
+		color: var(--red-dark1);
+		border-color: var(--red-dark1);
+		background-color: white;
+		background-image: none;
+		box-shadow: 0 0 0 transparent;
+	
+		&:hover, &:focus
+		{
+			color: white;
+			border-color: var(--red-dark4);
+			background-color: var(--red-dark1);
+			background-image: linear-gradient(to bottom, var(--red-light1), var(--red-dark1) 20%, var(--red-dark3) 90%, var(--red-dark4));
+			box-shadow: 1px 4px 5px var(--red-glow);
+		}
+		
+		&:active
+		{
+			color: white;
+			border-color: var(--red-dark4);
+			background-color: var(--red-dark2);
+			background-image: linear-gradient(to bottom, var(--red-dark4), var(--red-dark4) 20%, var(--red-dark2) 90%, var(--red-light1));
+			box-shadow: 0 0 0 transparent;
+		}
+	}
+
+	&.transparent
+	{
+		min-width: 4em;
+		color: var(--foreground);
+		border-color: transparent;
+		background-color: transparent;
+		background-image: none;
+		box-shadow: none;
+
+		&:hover, &:focus
+		{
+			background-color: var(--highlight1);
+			
+			.theme-dark &
+			{
+				background-color: var(--grey-dark3);
+			}
+		}
+
+		&:active
+		{
+			background-color: var(--shade2);
+
+			.theme-dark &
+			{
+				background-color: var(--grey-dark4);
+			}
+		}
+
+		&:disabled, &:disabled:hover
+		{
+			border-color: transparent;
+			background-color: transparent;
+
+			.theme-dark &
+			{
+				color: var(--grey-dark1);
+			}
+		}
+	}
+}
+
+label
+{
+	display: inline-block;
+	margin-top: .2em;
+
+	input[type=checkbox], input[type=radio]
+	{
+		margin-right: .5em;
+	}
+}
+
+fieldset
+{
+	border-radius: .25em;
+}
+
+legend
+{
+	@include caps;
+}
+
+/* ============================================================
+	Basic animations
+============================================================ */
+
+@keyframes add-object
+{
+	from
+	{
+		opacity: 0;
+	}
+	to
+	{
+		opacity: 1;
+	}
+}
+
+@keyframes remove-object
+{
+	from
+	{
+		pointer-events: none;
+	}
+	to
+	{
+		opacity: 0;
+		pointer-events: none;
+	}
+}
