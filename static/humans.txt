@@ -6,5 +6,5 @@
 
 /* SITE */
 
-	https://github.com/TravisSpomer/StaticSiteTemplate
+	https://github.com/TravisSpomer/SvelteKitTemplate
 	Built with: Visual Studio Code, TypeScript, SvelteKit, and more

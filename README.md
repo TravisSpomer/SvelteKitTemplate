@@ -4,6 +4,8 @@ I'm moving my existing [StaticSiteTemplate](https://github.com/TravisSpomer/Stat
 
 This is for my own use and I don't have any plans to elevate it beyond my own needs, but you're welcome to take it and build on it from there. (Unless you prefer indenting with spaces, in which case GTFO.)
 
+### **[🆕 Create a website with this template now](https://github.com/TravisSpomer/SvelteKitTemplate/generate)**
+
 ## What's not finished yet
 
 **SvelteKit isn't a production release yet.** Sites built on this template are just static files so the risk is mitigated significantly, but it's still important to keep in mind.
