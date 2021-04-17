@@ -1,0 +1,71 @@
+name: Deploy website
+
+on:
+  workflow_dispatch:
+  # Uncomment this to let the workflow run on every push to main:
+  # push:
+  #  branches: [ main ]
+
+# IMPORTANT: You need to set up a repo secret called DEPLOY_SAS_URL.
+# Here's how: https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it
+
+env:
+  # To purge Azure CDN after deployment, set the following values and a repo secret called AZURE_CREDENTIALS.
+  # Here's how: https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-static-site-github-actions#generate-deployment-credentials
+  # Otherwise, just delete all of these.
+  ENABLE_CDN_PURGE: false
+  AZURE_RESOURCE_GROUP: MyResourceGroup
+  AZURE_CDN_PROFILE: MyCDNProfile
+  AZURE_CDN_ENDPOINT: mycdnendpoint
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code from GitHub
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Build website
+      run: |
+        npm install
+        npm run build
+        
+    - name: Create redirects
+      uses: TravisSpomer/create-redirects@v1.0.0
+      with:
+        output-path: build
+        routes: routes.json
+        canonical-url: https://EXAMPLE.z22.web.core.windows.net/
+
+    - name: Deploy to Azure
+      uses: TravisSpomer/deploy-to-azure-storage@v1.3.0
+      with:
+        source-path: build
+        sas-url: ${{ secrets.DEPLOY_SAS_URL }}
+
+    - name: Log in to Azure
+      if: env.ENABLE_CDN_PURGE == 'true'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Purge CDN
+      if: env.ENABLE_CDN_PURGE == 'true'
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az cdn endpoint purge --no-wait --content-paths "/" --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" --profile-name "${{ env.AZURE_CDN_PROFILE }}" --name "${{ env.AZURE_CDN_ENDPOINT }}"
+
+    - name: Log out of Azure
+      if: env.ENABLE_CDN_PURGE == 'true'
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az logout
