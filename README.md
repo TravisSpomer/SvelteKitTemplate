@@ -10,9 +10,10 @@ This is for my own use and I don't have any plans to elevate it beyond my own ne
 
 **SvelteKit isn't a production release yet.** Sites built on this template are just static files so the risk is mitigated significantly, but it's still important to keep in mind.
 
-This template itself is also not finished—I still need to rebuild:
+There are two known issues that are a result of unfinished SvelteKit features:
 
-* HTML minification
+* There's a Flash of Unstyled Content due to there not being a way to have a true global SCSS file. ([Potential workaround](https://github.com/sveltejs/kit/issues/606#issuecomment-819385878))
+* [HTML isn't minified](https://github.com/sveltejs/kit/issues/568).
 
 ## How it differs from the basic SvelteKit starter project
 
@@ -100,7 +101,7 @@ You have a few options:
 
 You can deploy to Azure Static Web Apps with very minimal configuration:
 
-*	When creating the app in Azure Portal, set the build artifacts folder to `build`.
+* When creating the app in Azure Portal, set the build artifacts folder to `build`.
 
 Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
@@ -108,10 +109,10 @@ Once your repo and Azure are set up in this way, whenever your default branch is
 
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
-*	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
-*	In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines at the top to enable automatic deployments.
-	*	If you prefer, you can manually trigger a deployment from the Actions tab.
-	*	By default, GitHub won't allow you to edit that file from Visual Studio Code, only from github.com.
+* [Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
+* In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines at the top to enable automatic deployments.
+	* If you prefer, you can manually trigger a deployment from the Actions tab.
+	* By default, GitHub won't allow you to edit that file from Visual Studio Code, only from github.com.
 
 Once your repo is set up this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
