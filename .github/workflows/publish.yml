@@ -49,6 +49,7 @@ jobs:
       with:
         source-path: build
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}
+        immutable: "*.js;*.css"
 
     - name: Log in to Azure
       if: env.ENABLE_CDN_PURGE == 'true'
