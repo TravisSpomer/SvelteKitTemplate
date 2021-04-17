@@ -13,7 +13,6 @@ This is for my own use and I don't have any plans to elevate it beyond my own ne
 This template itself is also not finished—I still need to rebuild:
 
 * HTML minification
-* A deployment workflow
 
 ## How it differs from the basic SvelteKit starter project
 
@@ -25,7 +24,9 @@ I've preconfigured this template to be more amenable to the style of development
 * It enables SCSS.
 * It enables Markdown (using MDsveX, which lets you mix Markdown and Svelte in the same file).
 * It includes opinionated global styles to get beautiful text by default.
-* Its publishing workflow adds the ability to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
+* It includes a GitHub Actions publishing workflow to deploy to an Azure Storage static website that:
+	* Optionally purges an Azure CDN.
+	* Optionally allows you to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
 
 ## Environment setup
 
@@ -73,6 +74,55 @@ At minimum, do this to customize the site for your purposes:
 4. Add appropriate information to the [app manifest](static/app.webmanifest)
 5. Give yourself credit in [`humans.txt`](static/humans.txt)
 6. If you don't need to create redirect pages, you can delete [`routes.json`](routes.json) and remove the `Create redirects` task from the deployment workflow.
+
+### Creating routes and redirects
+
+Use [`routes.json`](routes.json) to configure routes and redirects for the app. The workflow will generate the appropriate redirect page files.
+
+(If you publish to Azure Static Web Apps or another service that supports server routing rules, ignore this file and configure routing rules appropriately for your server.)
+
+#### Example routes.json
+
+```json
+{
+	"routes": [
+		{ "route": "default.aspx", "serve": "/" }
+	]
+}
+```
+
+## Deploying to the web
+
+You have a few options:
+
+### Deploying to Azure Static Web Apps
+
+You can deploy to Azure Static Web Apps with very minimal configuration:
+
+*	When creating the app in Azure Portal, set the build artifacts folder to `build`.
+
+Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+
+### Deploying to Azure Blob Storage
+
+You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
+
+*	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
+*	In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines at the top to enable automatic deployments.
+	*	If you prefer, you can manually trigger a deployment from the Actions tab.
+	*	By default, GitHub won't allow you to edit that file from Visual Studio Code, only from github.com.
+
+Once your repo is set up this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+
+Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/actions/deploy-to-azure-storage) Action to automatically deploy static sites built with other templates, too.
+
+### Deploying to any static file host
+
+You can also deploy the site to any static file host. Just run a production build (`npm run build`; see above) and upload the contents of the `build` folder to a host of your choice.
+
+### Optionally purging an Azure CDN
+
+The deployment workflow included with this template can also automatically purge an associated Azure CDN endpoint whenever the site's contents change, to minimize the length of time when files are stale. Open [`.github/workflows/publish.yml`](.github/workflows/publish.yml) on github.com, and see the instructions near `ENABLE_CDN_PURGE`. Note that CDN purging requires a separate secret in addition to the `DEPLOY_SAS_URL` secret you already set up.
 
 ---
 
