@@ -14,7 +14,6 @@ This template itself is also not finished—I still need to rebuild:
 
 * HTML minification
 * A deployment workflow
-* Redirect page generation
 
 ## How it differs from the basic SvelteKit starter project
 
@@ -26,6 +25,7 @@ I've preconfigured this template to be more amenable to the style of development
 * It enables SCSS.
 * It enables Markdown (using MDsveX, which lets you mix Markdown and Svelte in the same file).
 * It includes opinionated global styles to get beautiful text by default.
+* Its publishing workflow adds the ability to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
 
 ## Environment setup
 
@@ -67,11 +67,12 @@ If you want to use the project without Visual Studio Code, use the following scr
 
 At minimum, do this to customize the site for your purposes:
 
-1.	Find and replace `SvelteKitTemplate` with the name of your site
-2.	Update the copyright information in [`src/routes/$layout.svelte`](src/routes/$layout.svelte)
-3.	Replace image assets in `static/images/app` with appropriate logos for your site
-4.	Add appropriate information to the [app manifest](static/app.webmanifest)
-5.	Give yourself credit in [`humans.txt`](static/humans.txt)
+1. Find and replace `SvelteKitTemplate` with the name of your site
+2. Update the copyright information in [`src/routes/$layout.svelte`](src/routes/$layout.svelte)
+3. Replace image assets in `static/images/app` with appropriate logos for your site
+4. Add appropriate information to the [app manifest](static/app.webmanifest)
+5. Give yourself credit in [`humans.txt`](static/humans.txt)
+6. If you don't need to create redirect pages, you can delete [`routes.json`](routes.json) and remove the `Create redirects` task from the deployment workflow.
 
 ---
 
