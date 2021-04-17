@@ -2,6 +2,7 @@
 	"name": "sveltekit-template",
 	"version": "0.0.1",
 	"private": true,
+	"license": "UNLICENSED",
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^1.0.0-next.4",
 		"@sveltejs/kit": "^1.0.0-next.77",

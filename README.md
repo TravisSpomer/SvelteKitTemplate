@@ -27,6 +27,7 @@ I've preconfigured this template to be more amenable to the style of development
 * It includes a GitHub Actions publishing workflow to deploy to an Azure Storage static website that:
 	* Optionally purges an Azure CDN.
 	* Optionally allows you to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
+	* Marks CSS and JS files as immutable for maximum caching performance.
 
 ## Environment setup
 
