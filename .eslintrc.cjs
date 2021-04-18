@@ -40,7 +40,7 @@ module.exports = {
 		"no-console": "off",
 		"no-multi-spaces": "warn",
 		"no-prototype-builtins": "off",
-		"no-shadow": ["error", { "builtinGlobals": true, "allow": ["name", "fetch"] }],
+		"no-shadow": "off", // This rule seems very buggy
 		"no-trailing-spaces": "warn",
 		"no-var": "error",
 		"object-curly-spacing": ["warn", "always"],
@@ -64,6 +64,6 @@ module.exports = {
 		"@typescript-eslint/no-inferrable-types": "off",
 		"@typescript-eslint/no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars-experimental": "warn",
-		"@typescript-eslint/no-var-requires": "off"
+		"@typescript-eslint/no-var-requires": "off",
 	}
 }
