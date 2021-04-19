@@ -62,7 +62,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az cdn endpoint purge --no-wait --content-paths "/" --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" --profile-name "${{ env.AZURE_CDN_PROFILE }}" --name "${{ env.AZURE_CDN_ENDPOINT }}"
+          az cdn endpoint purge --no-wait --content-paths "/*" --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" --profile-name "${{ env.AZURE_CDN_PROFILE }}" --name "${{ env.AZURE_CDN_ENDPOINT }}"
 
     - name: Log out of Azure
       if: env.ENABLE_CDN_PURGE == 'true'
