@@ -10,6 +10,7 @@
 	--foreground: black;
 	--background: white;
 	--background-alt: var(--grey-light4);
+	--background-trans: rgba(255, 255, 255, 0);
 	--highlight1: rgba(255, 255, 255, 0.8);
 	--shade1: rgba(0, 0, 0, 0.05);
 	--shade2: rgba(0, 0, 0, 0.1);
@@ -809,7 +810,7 @@ kbd
 	border-style: solid;
 	border-width: 1px;
 	border-color: var(--grey-light1);
-	background-image: linear-gradient(to bottom, transparent, var(--grey-light2));
+	background-image: linear-gradient(to bottom, var(--background-trans), var(--grey-light2));
 	border-radius: .2em;
 	background-color: transparent;
 	font-family: $font-body;
