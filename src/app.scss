@@ -387,6 +387,12 @@ ul, ol
 {
 	padding-left: $indent;
 
+
+	@media (max-width: $phone-width)
+	{
+		padding-left: ($indent / 2);
+	}
+	
 	li
 	{
 		margin: 8px 0 8px 0;
@@ -531,6 +537,14 @@ caption
 figure
 {
 	margin-left: $indent;
+
+	overflow-x: auto;
+	margin-right: (-$indent / 2);
+
+	@media (max-width: $phone-width)
+	{
+		margin-left: 0;
+	}
 }
 
 figcaption
@@ -543,11 +557,27 @@ figure-list
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	align-items: flex-end;
 	gap: $indent;
+
+	overflow-x: auto;
+	margin-left: $indent;
+	margin-right: (-$indent / 2);
+
+	@media (max-width: $phone-width)
+	{
+		margin-left: 0;
+	}
 
 	figure
 	{
+		flex: 0 0 auto;
+		display: flex;
+		flex-direction: column;
+
 		margin-left: 0;
+		margin-right: 0;
+		overflow-x: unset;
 
 		figcaption
 		{
@@ -590,6 +620,13 @@ blockquote, aside
 		}
 	}
 
+
+	@media (max-width: $phone-width)
+	{
+		padding-left: ($indent / 2);
+		padding-right: ($indent / 2);
+	}
+	
 	&.left
 	{
 		@include float-left(200px);
