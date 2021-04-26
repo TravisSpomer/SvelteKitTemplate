@@ -4,7 +4,7 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^1.0.0-next.4",
+		"@sveltejs/adapter-static": "^1.0.0-next.6",
 		"@sveltejs/kit": "^1.0.0-next.89",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
