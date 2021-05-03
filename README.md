@@ -10,11 +10,6 @@ This is for my own use and I don't have any plans to elevate it beyond my own ne
 
 **SvelteKit isn't a production release yet.** Sites built on this template are just static files so the risk is mitigated significantly, but it's still important to keep in mind.
 
-There are two known issues that are a result of unfinished SvelteKit features:
-
-* There's a Flash of Unstyled Content due to there not being a way to have a true global SCSS file. ([Potential workaround](https://github.com/sveltejs/kit/issues/606#issuecomment-819385878))
-* [HTML isn't minified](https://github.com/sveltejs/kit/issues/568).
-
 ## How it differs from the basic SvelteKit starter project
 
 I've preconfigured this template to be more amenable to the style of development that I prefer.
@@ -25,6 +20,7 @@ I've preconfigured this template to be more amenable to the style of development
 * It enables SCSS.
 * It enables Markdown (using MDsveX, which lets you mix Markdown and Svelte in the same file).
 * It includes opinionated global styles to get beautiful text by default.
+* It includes HTML minification.
 * It includes a GitHub Actions publishing workflow to deploy to an Azure Storage static website that:
 	* Optionally purges an Azure CDN.
 	* Optionally allows you to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
@@ -65,6 +61,12 @@ If you want to use the project without Visual Studio Code, use the following scr
 * `npm start`: Start dev server
 * `npm run build`: Production build
 * `npm run serve`: Serve production build for testing
+
+#### Serving over the network
+
+By default, the site will only be served to your local machine on port 80. If you want to expose the server to your whole local network, add `--host` to the commands in [`package.json`](package.json).
+
+**Important:** See [this Vite.js issue](https://github.com/vitejs/vite/issues/2820) for an overview of security concerns before doing this.
 
 ### Customizing for your site
 
