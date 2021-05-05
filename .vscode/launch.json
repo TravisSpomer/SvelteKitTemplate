@@ -7,16 +7,16 @@
 			"request": "launch",
 			"name": "Debug in Edge",
 			"url": "http://localhost",
+			"urlFilter": "http://localhost",
 			"webRoot": "${workspaceFolder}",
-			"preLaunchTask": "Start"
 		},
 		{
 			"type": "pwa-chrome",
 			"request": "launch",
 			"name": "Debug in Chrome",
 			"url": "http://localhost",
+			"urlFilter": "http://localhost",
 			"webRoot": "${workspaceFolder}",
-			"preLaunchTask": "Start"
 		}
 	]
 }

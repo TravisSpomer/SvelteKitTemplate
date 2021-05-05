@@ -26,7 +26,22 @@
 				"reveal": "silent",
 				"group": "Web server"
 			},
-			"problemMatcher": []
+			"problemMatcher": {
+				"fileLocation": ["relative", "${workspaceFolder}"],
+				"pattern": {
+					"regexp": "^(.*):(\\d+):(\\d+): \\- (warning|error)\\s+(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"message": 5,
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^\\s+SvelteKit v",
+					"endsPattern": "^--never--$",
+				},
+			},
 		},
 	]
 }

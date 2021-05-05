@@ -55,6 +55,13 @@ But, the most useful option will be the **Start** task, which starts the SvelteK
 
 To see the status of the server or build task, click the tools icon in the status bar, or Terminal > Show Running Tasks.
 
+### Debugging
+
+To debug browser code in Visual Studio Code:
+
+1. Start the server *(see above)*
+2. Run > Start Debugging (F5)
+
 #### Without Visual Studio Code
 
 If you want to use the project without Visual Studio Code, use the following scripts instead of the above:
