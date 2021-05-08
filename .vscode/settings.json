@@ -6,6 +6,7 @@
 	"files.exclude": {
 		".github": true,
 		".svelte": true,
+		".svelte-kit": true,
 		".vs": true,
 		".vscode": true,
 		".yarn": true,
