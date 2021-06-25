@@ -10,7 +10,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"importsNotUsedAsValues": "error",
 		"isolatedModules": true,
-		"lib": [ "ES2017", "dom" ],
+		"lib": [ "ES2020", "ESNext", "dom" ],
 		"module": "ES2020",
 		"moduleResolution": "node",
 		"noEmit": true,

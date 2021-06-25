@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /* ============================================================
 	Design system
 ============================================================ */
@@ -92,7 +94,7 @@
 
 @function line-height-as-multiple($line-height, $font-size)
 {
-	@return ceil(100000 * $line-height / $font-size) / 100000;
+	@return ceil(100000 * math.div($line-height, $font-size)) * 0.00001;
 }
 
 $font-size: 17px;
@@ -278,7 +280,7 @@ h1, h2, h3, h4, h5, h6
 
 h1, h2, h3
 {
-    widows: 3;
+	widows: 3;
 	orphans: 3;
 	page-break-after: avoid;
 }
@@ -389,7 +391,7 @@ ul, ol
 
 	@media (max-width: $phone-width)
 	{
-		padding-left: ($indent / 2);
+		padding-left: ($indent * 0.5);
 	}
 	
 	li
@@ -538,7 +540,7 @@ figure
 	margin-left: $indent;
 
 	overflow-x: auto;
-	margin-right: (-$indent / 2);
+	margin-right: (-$indent * 0.5);
 
 	@media (max-width: $phone-width)
 	{
@@ -561,7 +563,7 @@ figure-list
 
 	overflow-x: auto;
 	margin-left: $indent;
-	margin-right: (-$indent / 2);
+	margin-right: (-$indent * 0.5);
 
 	@media (max-width: $phone-width)
 	{
@@ -619,13 +621,12 @@ blockquote, aside
 		}
 	}
 
-
 	@media (max-width: $phone-width)
 	{
-		padding-left: ($indent / 2);
-		padding-right: ($indent / 2);
+		padding-left: ($indent * 0.5);
+		padding-right: ($indent * 0.5);
 	}
-	
+
 	&.left
 	{
 		@include float-left(200px);
@@ -1026,7 +1027,6 @@ header
 	right: 0;
 	white-space: nowrap;
 	z-index: 99999;
-	overflow: hidden;
 
 	color: var(--foreground);
 	background-color:  white;
@@ -1052,6 +1052,7 @@ header
 	@media (max-width: $phone-width)
 	{
 		height: 48px;
+		overflow: hidden;
 
 		box-shadow: 0 1px 3px var(--background);
 
@@ -1210,10 +1211,9 @@ main
 {
 	flex: 1 1 auto; /* required for IE11 instead of flex: 1; */
 	display: block;
-	margin: ($indent / 2);
+	margin: ($indent * 0.5);
 
 	overflow-wrap: anywhere;
-
 	scroll-margin-top: 120px;
 }
 
@@ -1517,33 +1517,4 @@ fieldset
 legend
 {
 	@include caps;
-}
-
-/* ============================================================
-	Basic animations
-============================================================ */
-
-@keyframes add-object
-{
-	from
-	{
-		opacity: 0;
-	}
-	to
-	{
-		opacity: 1;
-	}
-}
-
-@keyframes remove-object
-{
-	from
-	{
-		pointer-events: none;
-	}
-	to
-	{
-		opacity: 0;
-		pointer-events: none;
-	}
 }
