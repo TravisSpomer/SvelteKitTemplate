@@ -82,7 +82,7 @@ By default, the site will only be served to your local machine on port 80. If yo
 At minimum, do this to customize the site for your purposes:
 
 1. Find and replace `SvelteKitTemplate` with the name of your site
-2. Update the copyright information in [`src/routes/$layout.svelte`](src/routes/$layout.svelte)
+2. Update the copyright information in [`src/routes/__layout.svelte`](src/routes/__layout.svelte)
 3. Replace image assets in `static/images/app` with appropriate logos for your site
 4. Add appropriate information to the [app manifest](static/app.webmanifest)
 5. Give yourself credit in [`humans.txt`](static/humans.txt)
