@@ -38,10 +38,10 @@ jobs:
         npm run build
         
     - name: Create redirects
-      uses: TravisSpomer/create-redirects@v1.0.0
+      uses: TravisSpomer/create-redirects@v1.1.0
       with:
         output-path: build
-        routes: routes.json
+        routes: staticwebapp.config.json
         canonical-url: https://EXAMPLE.z22.web.core.windows.net/
 
     - name: Deploy to Azure
