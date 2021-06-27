@@ -1,0 +1,12 @@
+{
+	"routes": [],
+	"navigationFallback": {
+		"rewrite": "/index.html",
+		"exclude": [ "/images/*" ]
+	},
+	"responseOverrides": {
+		"404": {
+			"rewrite": "/404/index.html"
+		}
+	}
+}
