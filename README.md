@@ -23,7 +23,11 @@ I've preconfigured this template to be more amenable to the style of development
 * It enables Markdown (using MDsveX, which lets you mix Markdown and Svelte in the same file).
 * It includes opinionated global styles to get beautiful text by default.
 * It includes HTML minification.
-* It includes a GitHub Actions publishing workflow to deploy to an Azure Storage static website that:
+* If you publish to Azure Static Web Apps, it:
+	* Requires only a single configuration setting (setting the correct output folder).
+	* Includes a starter `staticwebapp.config.json` file to configure basic settings.
+	* Marks CSS and JS files as immutable for maximum caching performance.
+* It includes a GitHub Actions publishing workflow to deploy to an Azure Blob Storage static website that:
 	* Optionally purges an Azure CDN.
 	* Optionally allows you to [generate redirect pages using meta http-equiv](https://github.com/marketplace/actions/create-html-redirects).
 	* Marks CSS and JS files as immutable for maximum caching performance.
@@ -87,15 +91,18 @@ At minimum, do this to customize the site for your purposes:
 4. Add appropriate information to the [app manifest](static/app.webmanifest)
 5. Give yourself credit in [`humans.txt`](static/humans.txt)
 6. Depending on your deployment needs:
-	* **Azure Static Web Apps**: You can delete `.github/workflows/publish.yml` since Azure Static Web Apps will automatically add a publishing workflow for you.
-	* **Azure Blob Storage**: If you don't need to create redirect pages, you can delete [`staticwebapp.config.json`](static/staticwebapp.config.json) and remove the `Create redirects` task from the deployment workflow.
-	* **Other static hosts**: You can delete `.github/workflows/publish.yml` since it won't work. Or, use it as a starting point and remove the Azure-specific actions.
+	* Azure Static Web Apps: You can delete `.github/workflows/publish.yml` since Azure Static Web Apps will automatically add a publishing workflow for you.
+	* Azure Blob Storage: If you don't need to create redirect pages, you can delete [`staticwebapp.config.json`](static/staticwebapp.config.json) and remove the `Create redirects` task from the deployment workflow.
+	* Other static hosts: You can delete `.github/workflows/publish.yml` since it won't work. Or, use it as a starting point and remove the Azure-specific actions.
 
 ### Creating routes and redirects
 
 Use [`staticwebapp.config.json`](static/staticwebapp.config.json) to configure routes and redirects for the app. The workflow will generate the appropriate redirect page files.
 
-(If you publish to Azure Static Web Apps or another service that supports server routing rules, ignore this file and configure routing rules appropriately for your server.)
+Depending on how you deploy:
+	* Azure Static Web Apps: You can use the full capabilities of this file, such as adding custom headers, URL rewrites, and so on.
+	* Azure Blob Storage: Everything other than the `routes` array in this file will be ignored.
+	* Other static hosts: This functionality will only work if you use the [`create-redirects`](https://github.com/marketplace/actions/create-html-redirects) GitHub Action. Everything other than the `routes` array in this file will be ignored.
 
 #### Example staticwebapp.config.json
 
@@ -115,7 +122,7 @@ You have a few options:
 
 You can deploy to Azure Static Web Apps with very minimal configuration:
 
-* When creating the app in Azure Portal, set the build artifacts folder to `build`.
+* When creating the app in Azure Portal, choose the "Custom" build preset, and set the output location to `build`.
 
 Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
