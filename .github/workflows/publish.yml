@@ -41,7 +41,7 @@ jobs:
       uses: TravisSpomer/create-redirects@v1.1.0
       with:
         output-path: build
-        routes: staticwebapp.config.json
+        routes: static/staticwebapp.config.json
         canonical-url: https://EXAMPLE.z22.web.core.windows.net/
 
     - name: Deploy to Azure
