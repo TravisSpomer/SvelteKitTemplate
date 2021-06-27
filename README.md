@@ -126,6 +126,12 @@ You can deploy to Azure Static Web Apps with very minimal configuration:
 
 Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
+Tip: You can test your Azure Static Web App locally:
+
+1. Install the [Azure Static Web Apps CLI](https://docs.microsoft.com/en-us/azure/static-web-apps/local-development) (`npm install -g @azure/static-web-apps-cli`)
+2. `npm run build`
+3. `swa start build --port 80`
+
 ### Deploying to Azure Blob Storage
 
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
