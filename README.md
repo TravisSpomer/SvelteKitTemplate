@@ -86,20 +86,20 @@ At minimum, do this to customize the site for your purposes:
 3. Replace image assets in `static/images/app` with appropriate logos for your site
 4. Add appropriate information to the [app manifest](static/app.webmanifest)
 5. Give yourself credit in [`humans.txt`](static/humans.txt)
-6. If you don't need to create redirect pages, you can delete [`routes.json`](routes.json) and remove the `Create redirects` task from the deployment workflow.
+6. If you don't need to create redirect pages, you can delete [`staticwebapp.config.json`](staticwebapp.config.json) and remove the `Create redirects` task from the deployment workflow.
 
 ### Creating routes and redirects
 
-Use [`routes.json`](routes.json) to configure routes and redirects for the app. The workflow will generate the appropriate redirect page files.
+Use [`staticwebapp.config.json`](staticwebapp.config.json) to configure routes and redirects for the app. The workflow will generate the appropriate redirect page files.
 
 (If you publish to Azure Static Web Apps or another service that supports server routing rules, ignore this file and configure routing rules appropriately for your server.)
 
-#### Example routes.json
+#### Example staticwebapp.config.json
 
 ```json
 {
 	"routes": [
-		{ "route": "default.aspx", "serve": "/" }
+		{ "route": "default.aspx", "redirect": "/" }
 	]
 }
 ```
@@ -114,7 +114,7 @@ You can deploy to Azure Static Web Apps with very minimal configuration:
 
 * When creating the app in Azure Portal, set the build artifacts folder to `build`.
 
-Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps. You can delete `.github/workflows/publish.yml` since Azure Static Web Apps will automatically add a publishing workflow for you.
 
 ### Deploying to Azure Blob Storage
 
