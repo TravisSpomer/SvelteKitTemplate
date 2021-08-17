@@ -45,7 +45,7 @@ jobs:
         canonical-url: https://EXAMPLE.z22.web.core.windows.net/
 
     - name: Deploy to Azure
-      uses: TravisSpomer/deploy-to-azure-storage@v1.3.0
+      uses: TravisSpomer/deploy-to-azure-storage@v1.4.0
       with:
         source-path: build
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}
