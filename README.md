@@ -10,8 +10,6 @@ This is for my own use and I don't have any plans to elevate it beyond my own ne
 
 **SvelteKit isn't a production release yet.** Sites built on this template are just static files so the risk is mitigated significantly, but it's still important to keep in mind.
 
-Visual Studio Code integration is pretty alpha-quality right now, especially with SCSS integration.
-
 ## How it differs from the basic SvelteKit starter project
 
 I've preconfigured this template to be more amenable to the style of development that I prefer.

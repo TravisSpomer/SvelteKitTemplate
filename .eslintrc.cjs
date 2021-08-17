@@ -18,7 +18,8 @@ module.exports = {
 		}
 	],
 	"settings": {
-		"svelte3/typescript": require("typescript")
+		"svelte3/typescript": require("typescript"),
+		"svelte3/ignore-styles": () => true
 	},
 	"rules": {
 		"brace-style": ["warn", "allman"],
@@ -40,7 +41,7 @@ module.exports = {
 		"no-console": "off",
 		"no-multi-spaces": "warn",
 		"no-prototype-builtins": "off",
-		"no-shadow": "off", // This rule seems very buggy
+		"no-shadow": "off",
 		"no-trailing-spaces": "warn",
 		"no-var": "error",
 		"object-curly-spacing": ["warn", "always"],
@@ -62,6 +63,8 @@ module.exports = {
 		"@typescript-eslint/no-empty-interface": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-shadow": "error",
 		"@typescript-eslint/no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars-experimental": "warn",
 		"@typescript-eslint/no-var-requires": "off",
