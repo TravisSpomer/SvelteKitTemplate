@@ -153,4 +153,4 @@ The deployment workflow included with this template can also automatically purge
 
 ---
 
-This template is © 2020-2021 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
+This template is © 2020-2022 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
