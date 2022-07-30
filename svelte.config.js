@@ -20,11 +20,8 @@ export default {
 		paths: {
 			base: process.env.BASE_URL || "",
 		},
-		vite: {
-			ssr: {
-				noExternal: [
-				],
-			}
+		prerender: {
+			default: true,
 		},
 	},
 

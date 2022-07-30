@@ -1,34 +1,25 @@
 {
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compileOnSave": false,
 	"compilerOptions": {
 		"allowJs": true,
 		"alwaysStrict": true,
-		"baseUrl": ".",
 		"checkJs": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
 		"importsNotUsedAsValues": "error",
-		"isolatedModules": true,
-		"lib": [ "ES2020", "ESNext", "dom" ],
-		"module": "ES2020",
-		"moduleResolution": "node",
 		"noEmit": true,
 		"noEmitOnError": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
-		"paths": {
-			"$app/*": [".svelte/dev/runtime/app/*", ".svelte/build/runtime/app/*"],
-			"$lib/*": ["src/lib/*"]
-		},
 		"removeComments": true,
 		"rootDir": "src",
-		"sourceMap": true,
 		"skipLibCheck": true,
-		"strictNullChecks": true,
-		"target": "es2018"
+		"sourceMap": true,
+		"strictNullChecks": true
 	},
 	"include": [
 		"src/**/*.js",

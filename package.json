@@ -4,29 +4,29 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^1.0.0-next.26",
-		"@sveltejs/kit": "^1.0.0-next.232",
-		"@types/html-minifier": "^4.0.1",
-		"@typescript-eslint/eslint-plugin": "^5.10.0",
-		"@typescript-eslint/parser": "^5.10.0",
-		"eslint": "^8.7.0",
-		"eslint-plugin-svelte3": "^3.4.0",
+		"@sveltejs/adapter-static": "^1.0.0-next.38",
+		"@sveltejs/kit": "^1.0.0-next.398",
+		"@types/html-minifier": "^4.0.2",
+		"@typescript-eslint/eslint-plugin": "^5.31.0",
+		"@typescript-eslint/parser": "^5.31.0",
+		"eslint": "^8.20.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"html-minifier": "^4.0.0",
 		"mdsvex": "^0.9.7",
-		"sass": "^1.48.0",
-		"svelte": "^3.46.2",
-		"svelte-preprocess": "^4.10.2",
-		"tslib": "^2.3.0",
-		"typescript": "^4.5.4",
-		"vite": "^2.7.12"
+		"sass": "^1.54.0",
+		"svelte": "^3.49.0",
+		"svelte-preprocess": "^4.10.7",
+		"tslib": "^2.4.0",
+		"typescript": "^4.7.4"
 	},
 	"type": "module",
 	"engines": {
-		"node": ">= 12.17.0"
+		"node": ">= 14.0.0"
 	},
 	"scripts": {
-		"start": "svelte-kit dev --port 80 --open",
-		"build": "tsc --noEmit && svelte-kit build",
-		"serve": "svelte-kit preview --port 80 --open"
+		"start": "vite dev --port 80 --open",
+		"prepare": "svelte-kit sync",
+		"build": "vite build",
+		"serve": "vite preview --port 80 --open"
 	}
 }
