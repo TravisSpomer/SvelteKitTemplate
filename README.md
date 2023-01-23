@@ -6,10 +6,6 @@ This is for my own use and I don't have any plans to elevate it beyond my own ne
 
 ### **[🆕 Create a website with this template now](https://github.com/TravisSpomer/SvelteKitTemplate/generate)**
 
-## What's not finished yet
-
-**SvelteKit isn't a production release yet.** Sites built on this template are just static files so the risk is mitigated significantly, but it's still important to keep in mind.
-
 ## How it differs from the basic SvelteKit starter project
 
 I've preconfigured this template to be more amenable to the style of development that I prefer.
@@ -153,4 +149,4 @@ The deployment workflow included with this template can also automatically purge
 
 ---
 
-This template is © 2020-2022 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
+This template is © 2020-2023 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
