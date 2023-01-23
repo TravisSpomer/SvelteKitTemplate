@@ -1,4 +1,4 @@
-import { dev } from "$app/env"
+import { dev } from "$app/environment"
 import { minify } from "html-minifier"
 import type { Options } from "html-minifier"
 import type { Handle } from "@sveltejs/kit"
@@ -30,7 +30,7 @@ export async function handle({ event, resolve }: Parameters<Handle>[0]): Promise
 
 	// Minify all HTML outputs in production builds.
 	// IMPORTANT: If you use this template for a non-static site, you should probably only do this when prerendering.
-	//     import { prerendering } from "$app/env"
+	//     import { prerendering } from "$app/environment"
 	//     ...and then add "prerendering &&" to the condition below.
 	// Note that prerendering is false when using "npm run serve" ("svelte-kit preview").
 	if (!dev && response.headers && response.body && response.headers.get("content-type") === "text/html")
