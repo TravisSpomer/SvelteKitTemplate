@@ -1,5 +1,5 @@
 module.exports = {
-	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	"extends": ["eslint:recommended", "plugin:svelte/recommended"],
 	"ignorePatterns": ["build/", "node_modules/"],
 	"env": {
 		"browser": true,
@@ -9,19 +9,19 @@ module.exports = {
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"sourceType": "module",
-		"ecmaVersion": 2020
+		"ecmaVersion": 2020,
+		"extraFileExtensions": [".svelte"]
 	},
-	"plugins": ["svelte3", "@typescript-eslint"],
+	"plugins": ["@typescript-eslint"],
 	"overrides": [
 		{
 			"files": ["*.svelte"],
-			"processor": "svelte3/svelte3"
+			"parser": "svelte-eslint-parser",
+			"parserOptions": {
+				"parser": "@typescript-eslint/parser"
+			}
 		}
 	],
-	"settings": {
-		"svelte3/typescript": () => require("typescript"),
-		"svelte3/ignore-styles": () => true
-	},
 	"rules": {
 		"brace-style": ["warn", "allman"],
 		"block-spacing": ["warn", "always"],
@@ -44,6 +44,7 @@ module.exports = {
 		"no-prototype-builtins": "off",
 		"no-shadow": "off",
 		"no-trailing-spaces": "warn",
+		"no-unused-vars": "off",
 		"no-var": "error",
 		"object-curly-spacing": ["warn", "always"],
 		"padded-blocks": ["warn", "never"],
